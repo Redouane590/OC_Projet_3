@@ -50,15 +50,20 @@
     <div class="gallery" id="gallery">
       
     </div>
-    <script>
-      
-      
-      
-      
-      
-      
-    </script>
     
+    <aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title-modal" style="display: none;">
+      <div class="modal-wrapper js-stop-modal">
+        <span class="js-close-modal">&times;</span>
+        <h2 id="title-modal">Galerie Photo</h1>
+        <p>Ici on pourra modifier/ajouter </p>
+        <div id="modal-content" class="gallery-modal"></div>
+        <hr>
+        <div class="submit-modal">
+          <button class="btn-filter active" >Ajouter une photo</button>
+          <span class="delete-gallery" >Supprimer la gallerie</span>
+        </div>
+      </div>
+    </aside>
     
   </section>
   <section id="contact">
@@ -84,5 +89,6 @@
   </nav>
 </footer>
 <script src="index.js"></script>
+<script src="modal.js"></script>
 </body>
 </html>
