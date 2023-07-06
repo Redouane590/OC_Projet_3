@@ -9,21 +9,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
   <meta name="description" content="">
   <link rel="stylesheet" href="./assets/style.css">
+  <script src="https://kit.fontawesome.com/29f2211853.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
-<header>
-  <h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
-  <nav>
-    <ul>
-      <li>projets</li>
-      <li>contact</li>
-      <li><a href="login.html">login</a></li>
-      <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
-    </ul>
-  </nav>
-</header>
-<main>
-  <section id="introduction">
+  
+  
+  <header>
+    <h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+    <nav>
+      <ul>
+        <li>projets</li>
+        <li>contact</li>
+        <li><a id="loginlink" href="login.html" onclick="log()">login</a></li>
+        <li><a id="loginlinkout" href="index.html" onclick="logout()">logout</a></li>
+        <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section id="introduction">
     <figure>
       <img src="./assets/images/sophie-bluel.png" alt="">
     </figure>
@@ -37,67 +42,20 @@
   <section id="portfolio">
     <h2>Mes Projets</h2>
     <div class="filters">
-        <button class="btn-filter active" onclick="filterSelection('all', this)">Tous</button>
-        <button class="btn-filter" onclick="filterSelection('Objets', this)">Objets</button>
-        <button class="btn-filter" onclick="filterSelection('Appartements', this)">Appartements</button>
-        <button class="btn-filter" onclick="filterSelection('Hotels & restaurants', this)">Hôtels & restaurants</button>
-      </div>
+      <button class="btn-filter active" onclick="filterSelection('all', this)">Tous</button>
+      <button class="btn-filter" onclick="filterSelection('Objets', this)">Objets</button>
+      <button class="btn-filter" onclick="filterSelection('Appartements', this)">Appartements</button>
+      <button class="btn-filter" onclick="filterSelection('Hotels & restaurants', this)">Hôtels & restaurants</button>
+    </div>
     <div class="gallery" id="gallery">
       
     </div>
     <script>
-			let apiData = [];
-      fetch("http://localhost:5678/api/works").then((response) => {
-        if (response.ok) {
-          return response.json()
-        }
-        else {
-          console.error('Erreur réponse:' + response.status)
-        }
-
-      }).then((response) => {
-				apiData = response;
-				console.log(apiData)
-				displayGallery(apiData);
-      });
-
-			function displayGallery(data) {
-				const gallery = document.getElementById('gallery');
-				gallery.innerHTML = ''; // Réinitialise le contenu de la galerie
-
-				data.forEach(element => {
-					const figure = document.createElement('figure');
-					let image = document.createElement('img');
-					image.setAttribute('src', element.imageUrl);
-					image.setAttribute('alt', element.title);
-
-					let caption = document.createElement('figcaption');
-					caption.innerText = element.title;
-					figure.appendChild(image);
-					figure.appendChild(caption);
-					gallery.appendChild(figure);
-				});
-				console.log(data)
-    	};
-			
-      function filterSelection(category, button) {
-				const buttons = document.getElementsByClassName('btn-filter');
-				// retire la classe active a tout les boutons
-				for (let i = 0; i < buttons.length; i++) {
-					buttons[i].classList.remove('active');
-				}
-				
-				// Ajoute la classe active au bouton sélectionné
-				button.classList.add('active');
-
-        if (category === "all") {
-					displayGallery(apiData)
-				} else {
-					const filteredData = apiData.filter(element => element.category.name === category);
-					displayGallery(filteredData);
-				}
-
-      }
+      
+      
+      
+      
+      
       
     </script>
     
@@ -125,5 +83,6 @@
     </ul>
   </nav>
 </footer>
+<script src="index.js"></script>
 </body>
 </html>

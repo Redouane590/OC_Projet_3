@@ -224,3 +224,31 @@ form {
 	display: flex;
 	flex-direction: column;
 }
+
+#banner {
+	background-color: black;
+	height: 60px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+}
+
+.btn-banner {
+	border-radius: 30px;
+	height: 75%;
+	border: none;
+}
+
+.btn-banner-one {
+	background-color: black;
+	color: white;
+	border: none;
+}
+
+#loginlinkout, #loginlink {
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+}
