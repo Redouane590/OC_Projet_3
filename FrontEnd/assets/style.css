@@ -132,6 +132,32 @@ li:hover {
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
 }
+.gallery-modal {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 20px;
+	grid-row-gap: 35px;
+}
+
+.gallery-modal img {
+	width: 75px;
+	height: 100px;
+}
+
+.gallery-modal figure {
+  position: relative;
+	/* height: auto; */
+}
+
+.delete-icon {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  color: white;
+	background-color: black;
+  cursor: pointer;
+}
 
 .gallery img {
 	width: 100%;
@@ -245,6 +271,16 @@ form {
 	background-color: black;
 	color: white;
 	border: none;
+	text-decoration: none;
+}
+
+.btn-banner-one a {
+	text-decoration: none;
+  color: white;
+}
+.btn-banner-one a:visited {
+	text-decoration: none;
+  color: white;
 }
 
 #loginlinkout, #loginlink {
@@ -252,3 +288,59 @@ form {
 	color: black;
 	font-weight: bold;
 }
+
+
+/* modal */
+
+.modal {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.30);
+}
+
+.modal-wrapper {
+	width: 40%;
+	height: 600px;
+	max-width: 100vw;
+	max-height: 100vh;
+	background-color: white;
+	overflow: auto;
+	padding: 20px;
+}
+
+.submit-modal {
+	flex-direction: column;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	row-gap: 20px;
+	font-family: 'Syne';
+}
+
+.delete-gallery {
+	color: rgb(255, 68, 0);
+}
+
+.submit-modal button {
+	width: 200px;
+  padding: 10px 20px;
+}
+
+/* #modal-content figure {
+	width: 75px;
+	height: 100px;
+}
+#modal-content figure img {
+	width: inherit;
+	
+}
+
+.modal-wrapper .gallery-modal {
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+} */
