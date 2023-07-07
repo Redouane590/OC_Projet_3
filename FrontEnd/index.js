@@ -34,6 +34,8 @@ function displayGallery(data) {
     let edit = document.createElement('figcaption');
     edit.innerText = 'éditer'
 
+    
+
     figure.appendChild(image);
     figure.appendChild(caption);
 
@@ -41,10 +43,12 @@ function displayGallery(data) {
     // figureModal.appendChild(image)
     figureModal.appendChild(imageModal)
     figureModal.appendChild(edit)
-    
+    // figureModal.dataset.id = element.id
+    figureModal.setAttribute('data-id', element.id);
     let deleteIcon = document.createElement('span');
     deleteIcon.classList.add('delete-icon');
-    deleteIcon.innerHTML = '<i class="fas fa-trash-alt"></i>'; // Remplacez la classe et l'icône par celles de FontAwesome
+    deleteIcon.innerHTML = '<button><i class="fas fa-trash-alt"></i></button>'; // poubelle FontAwesome
+
 
     // Ajoute l'icône de poubelle à la figure
     figureModal.appendChild(deleteIcon);
@@ -52,6 +56,37 @@ function displayGallery(data) {
     galleryModal.appendChild(figureModal);
     gallery.appendChild(figure);
     
+    deleteIcon.addEventListener("click", async (e) => {
+      e.preventDefault();
+      
+      e.stopPropagation();
+      console.log(deleteIcon.parentElement)
+      const id = deleteIcon.parentElement.getAttribute('data-id');
+      // recupere l'ID de la figure sur lequuel se trouve le deleteicon pour ensuite supprimer l'élément correspondant
+      console.log('ID:', id);
+      const idFigure = figureModal.id;
+      let token = localStorage.getItem("token");
+      console.log(idFigure);
+      let response = await fetch(
+        `http://localhost:5678/api/works/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            accept: "*/*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        console.log("cest good bg")
+        return false;
+        // if HTTP-status is 200-299
+        // alert("Photo supprimé avec succes");
+        // obtenir le corps de réponse (la méthode expliquée ci-dessous)
+      } else {
+        alert("Echec de suppression");
+      }
+    });
   });
   console.log(data)
 };
