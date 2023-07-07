@@ -332,6 +332,15 @@ form {
   padding: 10px 20px;
 }
 
+#formulaire-ajout {
+	align-items: inherit;
+	width: 60%;
+	background-color: white;
+	height: 600px;
+	display: flex;
+	justify-content: space-around;
+}
+
 /* #modal-content figure {
 	width: 75px;
 	height: 100px;

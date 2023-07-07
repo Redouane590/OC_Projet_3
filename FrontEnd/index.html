@@ -59,10 +59,27 @@
         <div id="modal-content" class="gallery-modal"></div>
         <hr>
         <div class="submit-modal">
-          <button class="btn-filter active" >Ajouter une photo</button>
+          <button class="btn-filter active" id="form-add" >Ajouter une photo</button>
           <span class="delete-gallery" >Supprimer la gallerie</span>
         </div>
       </div>
+      
+      
+        <form id="formulaire-ajout" action="POST" method="post" style="display: none;">
+          <i class="fa-solid fa-arrow-left"></i>
+          <label for="file">Ajouter photo</label>
+          <input type="file" name="file" id="file">
+
+          <label for="titre">titre</label>
+          <input type="text" name="titre" id="titre">
+
+          <label for="categorie">Catégorie"</label>
+          <select name="categorie" id="categorie"></select>
+          <hr>
+          <button type="submit">Valider</button>
+
+        </form>
+      
     </aside>
     
   </section>

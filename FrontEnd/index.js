@@ -45,9 +45,9 @@ function displayGallery(data) {
     figureModal.appendChild(edit)
     // figureModal.dataset.id = element.id
     figureModal.setAttribute('data-id', element.id);
-    let deleteIcon = document.createElement('span');
+    let deleteIcon = document.createElement('a');
     deleteIcon.classList.add('delete-icon');
-    deleteIcon.innerHTML = '<button><i class="fas fa-trash-alt"></i></button>'; // poubelle FontAwesome
+    deleteIcon.innerHTML = '<i class="fas fa-trash-alt"></i>'; // poubelle FontAwesome
 
 
     // Ajoute l'icône de poubelle à la figure
@@ -57,9 +57,9 @@ function displayGallery(data) {
     gallery.appendChild(figure);
     
     deleteIcon.addEventListener("click", async (e) => {
-      e.preventDefault();
+      // e.preventDefault();
       
-      e.stopPropagation();
+      // e.stopPropagation();
       console.log(deleteIcon.parentElement)
       const id = deleteIcon.parentElement.getAttribute('data-id');
       // recupere l'ID de la figure sur lequuel se trouve le deleteicon pour ensuite supprimer l'élément correspondant
@@ -78,7 +78,7 @@ function displayGallery(data) {
         }
       );
       if (response.ok) {
-        console.log("cest good bg")
+        console.log(response.status)
         return false;
         // if HTTP-status is 200-299
         // alert("Photo supprimé avec succes");

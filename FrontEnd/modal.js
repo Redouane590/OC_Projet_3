@@ -40,6 +40,16 @@ window.addEventListener('keydown', function (e) {
 })
 
 
+const btnAdd = document.getElementById('form-add')
+btnAdd.addEventListener('click', function (e) {
+  e.preventDefault();
+  e.stopPropagation();
+  const wrapperModal = document.querySelector('.modal-wrapper');
+  const formAdd = document.getElementById('formulaire-ajout')
+  wrapperModal.style.display = 'none'
+  formAdd.style.display = null
+  })
+
 // let apiDataModal = [];
 // fetch("http://localhost:5678/api/works").then((response) => {
 //   if (response.ok) {
