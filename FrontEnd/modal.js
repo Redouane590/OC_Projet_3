@@ -39,17 +39,22 @@ window.addEventListener('keydown', function (e) {
   }
 })
 
+const wrapperModal = document.querySelector('.first-modal');
+const formAdd = document.getElementById('formulaire-ajout')
 
 const btnAdd = document.getElementById('form-add')
 btnAdd.addEventListener('click', function (e) {
   e.preventDefault();
   e.stopPropagation();
-  const wrapperModal = document.querySelector('.modal-wrapper');
-  const formAdd = document.getElementById('formulaire-ajout')
   wrapperModal.style.display = 'none'
   formAdd.style.display = null
-  })
+})
 
+const buttonReturn = document.querySelector('.fa-arrow-left')
+buttonReturn.addEventListener('click', function (e) {
+  wrapperModal.style.display = null
+  formAdd.style.display = 'none'
+})
 // let apiDataModal = [];
 // fetch("http://localhost:5678/api/works").then((response) => {
 //   if (response.ok) {

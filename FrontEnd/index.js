@@ -47,7 +47,7 @@ function displayGallery(data) {
     figureModal.setAttribute('data-id', element.id);
     let deleteIcon = document.createElement('a');
     deleteIcon.classList.add('delete-icon');
-    deleteIcon.innerHTML = '<i class="fas fa-trash-alt"></i>'; // poubelle FontAwesome
+    deleteIcon.innerHTML = '<i class="fas fa-trash-alt"></i>';
 
 
     // Ajoute l'icône de poubelle à la figure
@@ -57,7 +57,7 @@ function displayGallery(data) {
     gallery.appendChild(figure);
     
     deleteIcon.addEventListener("click", async (e) => {
-      // e.preventDefault();
+      e.preventDefault();
       
       // e.stopPropagation();
       console.log(deleteIcon.parentElement)
@@ -79,9 +79,9 @@ function displayGallery(data) {
       );
       if (response.ok) {
         console.log(response.status)
-        return false;
+        
         // if HTTP-status is 200-299
-        // alert("Photo supprimé avec succes");
+        alert("Photo supprimé avec succes");
         // obtenir le corps de réponse (la méthode expliquée ci-dessous)
       } else {
         alert("Echec de suppression");
@@ -91,7 +91,83 @@ function displayGallery(data) {
   console.log(data)
 };
 
+function postData(data) {
+  let token = localStorage.getItem("token");
+  fetch('http://localhost:5678/api/works', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: data
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Traitez la réponse du serveur ici si nécessaire
+      console.log('Réponse du serveur :', data);
+    })
+    .catch(error => {
+      console.error('Une erreur s\'est produite :', error);
+    });
+}
 
+document.getElementById('formulaire-ajout').addEventListener('submit', function(event) {
+  event.preventDefault(); // Empêche le rechargement de la page
+
+  // Récupérer les valeurs des champs du formulaire
+  const titre = document.getElementById('titre').value;
+  const categorie = document.getElementById('categorie').value;
+  const fileInput = document.getElementById('file');
+  const file = fileInput.files[0];
+
+  const formData = new FormData();
+  formData.append('category', categorie);
+  formData.append('title', titre);
+  formData.append('image', file);
+  
+  postData(formData);
+});
+
+document.getElementById('file').addEventListener('change', function(event) {
+  const fileInput = event.target;
+  const file = fileInput.files[0]; 
+  if (file) {
+    // Créer un objet FileReader pour lire le fichier
+    const reader = new FileReader();
+
+    // Gérer l'évent "load" lorsque la lecture du fichier est terminée
+    reader.onload = function() {
+      // Afficher l'image sélectionnée
+      const imagePreview = document.getElementById('image-preview');
+      imagePreview.src = reader.result;
+      imagePreview.style.display = 'block';
+
+      // Masquer l'input "file" et le logo
+      // const logoImage = document.getElementsByClassName('fa-sharp')
+      const fileLabel = document.getElementById('file-label');
+      const logoImage = document.getElementById('logo-image')
+      const infoSpan = document.getElementById('info-size')
+      fileLabel.style.display = 'none';
+      logoImage.style.display = 'none';
+      infoSpan.style.display = 'none';
+    };
+
+    // Lire le contenu du fichier comme une URL de données
+    reader.readAsDataURL(file);
+  } else {
+    // Si aucun fichier n'est sélectionné, masquer l'image d'aperçu et afficher l'input de type "file"
+    const imagePreview = document.getElementById('image-preview');
+    imagePreview.src = '#';
+    imagePreview.style.display = 'none';
+
+    const fileLabel = document.getElementById('file-label');
+    const logoImage = document.getElementById('logo-image')
+    const infoSpan = document.getElementById('info-size')
+    infoSpan.style.display = 'block';
+    fileLabel.style.display = 'block';
+    logoImage.style.display = 'block';
+
+  }
+});
 
 function filterSelection(category, button) {
   const buttons = document.getElementsByClassName('btn-filter');

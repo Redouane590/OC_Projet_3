@@ -53,32 +53,51 @@
     
     <aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title-modal" style="display: none;">
       <div class="modal-wrapper js-stop-modal">
-        <span class="js-close-modal">&times;</span>
-        <h2 id="title-modal">Galerie Photo</h1>
-        <p>Ici on pourra modifier/ajouter </p>
-        <div id="modal-content" class="gallery-modal"></div>
-        <hr>
-        <div class="submit-modal">
-          <button class="btn-filter active" id="form-add" >Ajouter une photo</button>
-          <span class="delete-gallery" >Supprimer la gallerie</span>
-        </div>
+        <div class="first-modal">
+          <span class="js-close-modal">&times;</span>
+          <h2 id="title-modal">Galerie Photo</h1>
+          <p>Ici on pourra modifier/ajouter </p>
+          <div id="modal-content" class="gallery-modal"></div>
+          <hr>
+          <div class="submit-modal">
+            <button class="btn-filter active" id="form-add" >Ajouter une photo</button>
+            <span class="delete-gallery" >Supprimer la gallerie</span>
+          </div>
+      </div>
+      <div class="form-container">
+        <form id="formulaire-ajout" action="POST" method="post" style="display: none; width: 66%;">
+          <i class="fa-solid fa-arrow-left"></i>
+          <h2>Ajout photo</h2>
+          <div style="background: aliceblue; display: flex; flex-direction: column; align-items: center;
+          justify-content: space-evenly; height: 175px;">
+            <i class="fa-sharp fa-regular fa-image" id="logo-image" style="text-align: center; font-size: 60px; color: #BAC5CC;"></i>
+            <img id="image-preview" src="#" alt="Image previsualisée" style="max-width: 200px; display: none; max-height: 175px;">
+
+            <label for="file" class="btn-filter" id="file-label">+ Ajouter photo</label>
+            <input type="file" name="file" id="file" style="visibility:hidden; height: 0px;" required >
+            <span id="info-size">jpg, png : 4mo max</span> 
+          </div>
+          <div>
+            <label for="titre">Titre</label>
+            <input type="text" name="titre" id="titre" style="margin-top: 10px;" required>
+          </div>
+          <div>
+            <label for="categorie">Catégorie</label>
+            <select name="categorie" id="categorie" style="margin-top: 10px;" required>
+              <option value=""></option>
+              <option value="1">Objets</option>
+              <option value="2">Appartements</option>
+              <option value="3">Hotels & restaurants</option>
+            </select>
+          </div>
+          <hr>
+          <button type="submit" class="btn-filter" style="align-self: center; width: 50%;">Valider</button>
+  
+        </form>
+      </div>
       </div>
       
       
-        <form id="formulaire-ajout" action="POST" method="post" style="display: none;">
-          <i class="fa-solid fa-arrow-left"></i>
-          <label for="file">Ajouter photo</label>
-          <input type="file" name="file" id="file">
-
-          <label for="titre">titre</label>
-          <input type="text" name="titre" id="titre">
-
-          <label for="categorie">Catégorie"</label>
-          <select name="categorie" id="categorie"></select>
-          <hr>
-          <button type="submit">Valider</button>
-
-        </form>
       
     </aside>
     
