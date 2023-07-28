@@ -1,5 +1,7 @@
 let apiData = [];
-fetch("http://localhost:5678/api/works").then((response) => {
+let originalData = [];
+
+function fetchData() { fetch("http://localhost:5678/api/works").then((response) => {
   if (response.ok) {
     return response.json()
   }
@@ -7,21 +9,25 @@ fetch("http://localhost:5678/api/works").then((response) => {
     console.error('Erreur réponse:' + response.status)
   }
 
-}).then((response) => {
-  apiData = response;
-  console.log(apiData)
-  displayGallery(apiData);
-  
-});
+  }).then((response) => {
+    apiData = response;
+    originalData = response; 
+    console.log(apiData)
+    displayGallery();
+    
+  });
+}
 
-function displayGallery(data) {
+fetchData()
+
+function displayGallery() {
   const gallery = document.getElementById('gallery');
   const galleryModal = document.getElementById('modal-content');
   // const modalContent = document.getElementById('modal-content');
   gallery.innerHTML = ''; // Réinitialise le contenu de la galerie
   galleryModal.innerHTML = '';
 
-  data.forEach(element => {
+  apiData.forEach(element => {
     const figure = document.createElement('figure');
     const figureModal = document.createElement('figure');
     let image = document.createElement('img');
@@ -55,41 +61,37 @@ function displayGallery(data) {
     // modalContent.appendChild(figureModal);
     galleryModal.appendChild(figureModal);
     gallery.appendChild(figure);
-    
-    deleteIcon.addEventListener("click", async (e) => {
+    deleteIcon.addEventListener("click", (e) => {
       e.preventDefault();
-      
-      // e.stopPropagation();
-      console.log(deleteIcon.parentElement)
       const id = deleteIcon.parentElement.getAttribute('data-id');
-      // recupere l'ID de la figure sur lequuel se trouve le deleteicon pour ensuite supprimer l'élément correspondant
-      console.log('ID:', id);
-      const idFigure = figureModal.id;
-      let token = localStorage.getItem("token");
-      console.log(idFigure);
-      let response = await fetch(
-        `http://localhost:5678/api/works/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            accept: "*/*",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.ok) {
-        console.log(response.status)
-        
-        // if HTTP-status is 200-299
-        alert("Photo supprimé avec succes");
-        // obtenir le corps de réponse (la méthode expliquée ci-dessous)
-      } else {
-        alert("Echec de suppression");
-      }
+      deleteWork(id); // Appeler la fonction de suppression
     });
   });
-  console.log(data)
 };
+
+
+
+async function deleteWork(id) {
+  let token = localStorage.getItem("token");
+  let response = await fetch(
+    `http://localhost:5678/api/works/${id}`,
+    {
+      method: "DELETE",
+      headers: {
+        accept: "*/*",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  if (response.ok) {
+    apiData = apiData.filter((element) => element.id !== id); // Supprimer le 'work' du tableau apiData
+    fetchData() // Mettre à jour l'affichage de la galerie
+    console.log(apiData)
+    // alert("Photo supprimée avec succès");
+  } else {
+    alert("Échec de la suppression");
+  }
+}
 
 function postData(data) {
   let token = localStorage.getItem("token");
@@ -104,6 +106,10 @@ function postData(data) {
     .then(data => {
       // Traitez la réponse du serveur ici si nécessaire
       console.log('Réponse du serveur :', data);
+      apiData.push(data);
+      displayGallery()
+      closeModal()
+      
     })
     .catch(error => {
       console.error('Une erreur s\'est produite :', error);
@@ -125,6 +131,9 @@ document.getElementById('formulaire-ajout').addEventListener('submit', function(
   formData.append('image', file);
   
   postData(formData);
+  this.reset()
+  resetForm()
+  closeModal(event)
 });
 
 document.getElementById('file').addEventListener('change', function(event) {
@@ -142,7 +151,6 @@ document.getElementById('file').addEventListener('change', function(event) {
       imagePreview.style.display = 'block';
 
       // Masquer l'input "file" et le logo
-      // const logoImage = document.getElementsByClassName('fa-sharp')
       const fileLabel = document.getElementById('file-label');
       const logoImage = document.getElementById('logo-image')
       const infoSpan = document.getElementById('info-size')
@@ -151,23 +159,35 @@ document.getElementById('file').addEventListener('change', function(event) {
       infoSpan.style.display = 'none';
     };
 
-    // Lire le contenu du fichier comme une URL de données
     reader.readAsDataURL(file);
   } else {
+    resetForm()
     // Si aucun fichier n'est sélectionné, masquer l'image d'aperçu et afficher l'input de type "file"
-    const imagePreview = document.getElementById('image-preview');
-    imagePreview.src = '#';
-    imagePreview.style.display = 'none';
+    // const imagePreview = document.getElementById('image-preview');
+    // imagePreview.src = '#';
+    // imagePreview.style.display = 'none';
 
-    const fileLabel = document.getElementById('file-label');
-    const logoImage = document.getElementById('logo-image')
-    const infoSpan = document.getElementById('info-size')
-    infoSpan.style.display = 'block';
-    fileLabel.style.display = 'block';
-    logoImage.style.display = 'block';
+    // const fileLabel = document.getElementById('file-label');
+    // const logoImage = document.getElementById('logo-image')
+    // const infoSpan = document.getElementById('info-size')
+    // infoSpan.style.display = 'block';
+    // fileLabel.style.display = 'block';
+    // logoImage.style.display = 'block';
 
   }
 });
+
+function resetForm() {
+  const imagePreview = document.getElementById('image-preview');
+  const fileLabel = document.getElementById('file-label');
+  const logoImage = document.getElementById('logo-image')
+  const infoSpan = document.getElementById('info-size')
+  imagePreview.src = '#';
+  imagePreview.style.display = 'none';
+  infoSpan.style.display = 'block';
+  fileLabel.style.display = 'block';
+  logoImage.style.display = 'block';
+}
 
 function filterSelection(category, button) {
   const buttons = document.getElementsByClassName('btn-filter');
@@ -180,10 +200,11 @@ function filterSelection(category, button) {
   button.classList.add('active');
 
   if (category === "all") {
-    displayGallery(apiData)
+    apiData = originalData;
+    displayGallery()
   } else {
-    const filteredData = apiData.filter(element => element.category.name === category);
-    displayGallery(filteredData);
+    apiData = originalData.filter((element) => element.category.name === category);
+    displayGallery();
   }
 
 }
@@ -193,7 +214,7 @@ function filterSelection(category, button) {
 
 if (localStorage.getItem('token')) {
   // Créer la banner qui sera tout au dessus de l'index
-  console.log(localStorage.getItem('token'))
+  // console.log(localStorage.getItem('token'))
   var bannerDiv = document.createElement('div');
   bannerDiv.id = 'banner';
 
@@ -216,7 +237,7 @@ if (localStorage.getItem('token')) {
 
   var loginLink = document.getElementById('loginlink')
   loginLink.style.display = 'none';
-  console.log(loginLink)
+  // console.log(loginLink)
   
 }
 // quand je logout on retire le token 

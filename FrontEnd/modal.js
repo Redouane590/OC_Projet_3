@@ -23,6 +23,8 @@ const closeModal = function (e) {
   modal.querySelector('.js-close-modal').removeEventListener('click', closeModal)
   modal.querySelector('.js-stop-modal').removeEventListener('click', stopPropagation)
   modal = null
+  wrapperModal.style.display = null
+  formAdd.style.display = 'none'
 }
 
 const stopPropagation = function (e) {
@@ -55,39 +57,3 @@ buttonReturn.addEventListener('click', function (e) {
   wrapperModal.style.display = null
   formAdd.style.display = 'none'
 })
-// let apiDataModal = [];
-// fetch("http://localhost:5678/api/works").then((response) => {
-//   if (response.ok) {
-//     return response.json()
-//   }
-//   else {
-//     console.error('Erreur réponse:' + response.status)
-//   }
-
-// }).then((response) => {
-//   apiDataModal = response;
-//   console.log(apiDataModal)
-//   displayGalleryModal(apiDataModal);
-  
-// });
-
-// function displayGalleryModal(data) {
-//   const gallery = document.getElementsByClassName('gallery-modal');
-//   gallery.innerHTML = ''; // Réinitialise le contenu de la galerie
-
-//   data.forEach(element => {
-//     const figure = document.createElement('figure');
-//     let image = document.createElement('img');
-//     image.setAttribute('src', element.imageUrl);
-//     image.setAttribute('alt', element.title);
-
-//     let edit = document.createElement('span');
-//     edit.innerText = 'éditer';
-//     figure.appendChild(image);
-    
-//     figure.appendChild(edit);
-//     gallery.appendChild(figure);
-    
-//   });
-//   console.log(data)
-// };
