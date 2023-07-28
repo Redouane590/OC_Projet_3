@@ -144,6 +144,7 @@ li:hover {
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 	grid-column-gap: 20px;
 	grid-row-gap: 35px;
+	margin-bottom: 50px;
 }
 
 .gallery-modal img {
@@ -343,6 +344,7 @@ form {
 	align-items: center;
 	row-gap: 20px;
 	font-family: 'Syne';
+	margin-top: 50px;
 }
 
 .delete-gallery {
@@ -391,7 +393,16 @@ form {
 #login-form {
 	gap: 25px;
 }
-
+#login-form input {
+	padding-left: 12px;
+}
+#footer-login {
+	background-color: white;
+	position: fixed;
+  bottom: 0; /* on le colle en bas */
+  left: 0;
+  width: 100%;
+}
 /* #modal-content figure {
 	width: 75px;
 	height: 100px;

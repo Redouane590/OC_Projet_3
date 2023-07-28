@@ -54,9 +54,8 @@
     <aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title-modal" style="display: none;">
       <div class="modal-wrapper js-stop-modal">
         <div class="first-modal">
-          <span class="js-close-modal">&times;</span>
+          <div style="display: flex; flex-flow: row-reverse;"><span class="js-close-modal" style="font-size: 25px; cursor: pointer;">&times;</span></div>
           <h2 id="title-modal">Galerie Photo</h1>
-          <p>Ici on pourra modifier/ajouter </p>
           <div id="modal-content" class="gallery-modal"></div>
           <hr>
           <div class="submit-modal">
@@ -66,7 +65,10 @@
       </div>
       <div class="form-container">
         <form id="formulaire-ajout" action="POST" method="post" style="display: none; width: 66%;">
-          <i class="fa-solid fa-arrow-left"></i>
+          <div style="display: flex; justify-content: space-between; ">
+            <i class="fa-solid fa-arrow-left" style="cursor: pointer;"></i>
+            <span class="js-close-modal" style="font-size: 25px; cursor: pointer;">&times;</span>
+          </div>
           <h2>Ajout photo</h2>
           <div style="background: aliceblue; display: flex; flex-direction: column; align-items: center;
           justify-content: space-evenly; height: 175px;">
@@ -90,7 +92,7 @@
               <option value="3">Hotels & restaurants</option>
             </select>
           </div>
-          <hr>
+          <hr class="hr" style="margin: 50px 0 50px 0">
           <button type="submit" id="submit-button" class="btn-filter" style="align-self: center; width: 50%;">Valider</button>
   
         </form>
