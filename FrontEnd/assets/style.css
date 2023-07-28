@@ -30,6 +30,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background-color: #FFFEF8;
 }
 ol, ul {
 	list-style: none;
@@ -84,6 +85,11 @@ h2{
 	font-size: 30px;
 	color: #1D6154
 }
+.h2 {
+	text-align: center;
+	margin-bottom: 50px;
+}
+
 nav ul {
 	display: flex;
 	align-items: center;
@@ -226,6 +232,7 @@ footer nav ul {
 	border: 1px solid #1D6154;
 	font-weight: 700;
 	color: #1D6154;
+	cursor: pointer;
 }
 
 .active {
@@ -289,6 +296,21 @@ form {
 	font-weight: bold;
 }
 
+#error-container {
+	color: red;
+	text-align: center;
+}
+
+#login-form a {
+	text-align: center;
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+#login-form button {
+	width: 50%;
+	align-self: center;
+}
 
 /* modal */
 
@@ -360,6 +382,16 @@ form {
 	display: flex;
   justify-content: center;
 }
+
+#login-form div {
+	display: flex;
+  flex-direction: column;
+}
+
+#login-form {
+	gap: 25px;
+}
+
 /* #modal-content figure {
 	width: 75px;
 	height: 100px;
