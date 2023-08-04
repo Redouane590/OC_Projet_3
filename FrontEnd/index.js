@@ -109,6 +109,7 @@ function postData(data) {
       apiData.push(data);
       displayGallery()
       closeModal()
+      fetchData()
       
     })
     .catch(error => {
