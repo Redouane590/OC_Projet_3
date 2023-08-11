@@ -163,18 +163,6 @@ document.getElementById('file').addEventListener('change', function(event) {
     reader.readAsDataURL(file);
   } else {
     resetForm()
-    // Si aucun fichier n'est sélectionné, masquer l'image d'aperçu et afficher l'input de type "file"
-    // const imagePreview = document.getElementById('image-preview');
-    // imagePreview.src = '#';
-    // imagePreview.style.display = 'none';
-
-    // const fileLabel = document.getElementById('file-label');
-    // const logoImage = document.getElementById('logo-image')
-    // const infoSpan = document.getElementById('info-size')
-    // infoSpan.style.display = 'block';
-    // fileLabel.style.display = 'block';
-    // logoImage.style.display = 'block';
-
   }
 });
 
