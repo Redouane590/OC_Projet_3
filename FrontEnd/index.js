@@ -23,8 +23,7 @@ fetchData()
 function displayGallery() {
   const gallery = document.getElementById('gallery');
   const galleryModal = document.getElementById('modal-content');
-  // const modalContent = document.getElementById('modal-content');
-  gallery.innerHTML = ''; // Réinitialise le contenu de la galerie
+  gallery.innerHTML = '';
   galleryModal.innerHTML = '';
 
   apiData.forEach(element => {
@@ -46,10 +45,8 @@ function displayGallery() {
     figure.appendChild(caption);
 
     const imageModal = image.cloneNode(true);
-    // figureModal.appendChild(image)
     figureModal.appendChild(imageModal)
     figureModal.appendChild(edit)
-    // figureModal.dataset.id = element.id
     figureModal.setAttribute('data-id', element.id);
     let deleteIcon = document.createElement('a');
     deleteIcon.classList.add('delete-icon');
@@ -58,13 +55,12 @@ function displayGallery() {
 
     // Ajoute l'icône de poubelle à la figure
     figureModal.appendChild(deleteIcon);
-    // modalContent.appendChild(figureModal);
     galleryModal.appendChild(figureModal);
     gallery.appendChild(figure);
     deleteIcon.addEventListener("click", (e) => {
       e.preventDefault();
       const id = deleteIcon.parentElement.getAttribute('data-id');
-      deleteWork(id); // Appeler la fonction de suppression
+      deleteWork(id);
     });
   });
 };
@@ -84,10 +80,8 @@ async function deleteWork(id) {
     }
   );
   if (response.ok) {
-    apiData = apiData.filter((element) => element.id !== id); // Supprimer le 'work' du tableau apiData
-    fetchData() // Mettre à jour l'affichage de la galerie
-    console.log(apiData)
-    // alert("Photo supprimée avec succès");
+    apiData = apiData.filter((element) => element.id !== id);
+    fetchData()
   } else {
     alert("Échec de la suppression");
   }
@@ -104,7 +98,6 @@ function postData(data) {
     })
     .then(response => response.json())
     .then(data => {
-      // Traitez la réponse du serveur ici si nécessaire
       console.log('Réponse du serveur :', data);
       apiData.push(data);
       displayGallery()
@@ -116,9 +109,26 @@ function postData(data) {
       console.error('Une erreur s\'est produite :', error);
     });
 }
+const titreInput = document.getElementById('titre');
+const categorieSelect = document.getElementById('categorie');
+const submitButton = document.getElementById('submit-button');
+
+// fonction pour activer/desactiver le bouton
+function checkConditions() {
+  if (titreInput.value !== '' && categorieSelect.value !== '') {
+    submitButton.disabled = false;
+    submitButton.classList.add('active');
+  } else {
+    submitButton.disabled = true;
+    submitButton.classList.remove('active');
+  }
+}
+
+titreInput.addEventListener('input', checkConditions);
+categorieSelect.addEventListener('change', checkConditions);
 
 document.getElementById('formulaire-ajout').addEventListener('submit', function(event) {
-  event.preventDefault(); // Empêche le rechargement de la page
+  event.preventDefault();
 
   // Récupérer les valeurs des champs du formulaire
   const titre = document.getElementById('titre').value;
@@ -135,6 +145,7 @@ document.getElementById('formulaire-ajout').addEventListener('submit', function(
   this.reset()
   resetForm()
   closeModal(event)
+  checkConditions()
 });
 
 document.getElementById('file').addEventListener('change', function(event) {
@@ -180,7 +191,6 @@ function resetForm() {
 
 function filterSelection(category, button) {
   const buttons = document.getElementsByClassName('btn-filter');
-  // retire la classe active a tout les boutons
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].classList.remove('active');
   }
@@ -202,8 +212,7 @@ function filterSelection(category, button) {
 
 
 if (localStorage.getItem('token')) {
-  // Créer la banner qui sera tout au dessus de l'index
-  // console.log(localStorage.getItem('token'))
+
   var bannerDiv = document.createElement('div');
   bannerDiv.id = 'banner';
 
@@ -226,8 +235,13 @@ if (localStorage.getItem('token')) {
 
   var loginLink = document.getElementById('loginlink')
   loginLink.style.display = 'none';
-  // console.log(loginLink)
   
+  var titleContainer = document.querySelector('.title-container');
+  var modeEditionLink = document.createElement('a');
+  modeEditionLink.href = '#modal1';
+  modeEditionLink.className = 'js-modal';
+  modeEditionLink.innerHTML = '<i class="fa-regular fa-pen-to-square"></i> Mode édition';
+  titleContainer.appendChild(modeEditionLink);
 }
 // quand je logout on retire le token 
 function logout() {

@@ -129,7 +129,7 @@ li:hover {
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
+	margin-right: 10px;
 }
 .gallery {
 	width: 100%;
@@ -399,19 +399,19 @@ form {
 #footer-login {
 	background-color: white;
 	position: fixed;
-  bottom: 0; /* on le colle en bas */
+  bottom: 0;
   left: 0;
   width: 100%;
 }
-/* #modal-content figure {
-	width: 75px;
-	height: 100px;
-}
-#modal-content figure img {
-	width: inherit;
-	
+
+.title-container {
+	display: flex;
+	justify-content: center;
+	height: max-content;
+	align-items: center;
 }
 
-.modal-wrapper .gallery-modal {
-	grid-template-columns: 1fr 1fr 1fr 1fr;
-} */
+.title-container a {
+	text-decoration: none;
+	color: black;
+}

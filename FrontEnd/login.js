@@ -16,15 +16,9 @@ form.addEventListener('submit', async (event) => {
 
   if (response.ok) {
     // La combinaison nom d'utilisateur / mot de passe est correcte
-    // Stockez le token d'authentification pour une utilisation ultérieure
-    console.log("vous etes co")
     localStorage.setItem('token', data.token);
-    // Redirige l'utilisateur vers la page d'accueil
     window.location.href = 'index.html';
   } else {
-    // La combinaison nom d'utilisateur / mot de passe est incorrecte
-    // Affiche un message d'erreur à l'utilisateur
-    console.log("recommence")
     const errorContainer = document.getElementById('error-container');
     errorContainer.textContent = 'Erreur dans l’identifiant ou le mot de passe';
   }
