@@ -112,20 +112,25 @@ function postData(data) {
 const titreInput = document.getElementById('titre');
 const categorieSelect = document.getElementById('categorie');
 const submitButton = document.getElementById('submit-button');
+const errorMessage = document.getElementById('error-message');
+const fileInput = document.getElementById('file');
 
 // fonction pour activer/desactiver le bouton
 function checkConditions() {
-  if (titreInput.value !== '' && categorieSelect.value !== '') {
+  if (titreInput.value !== '' && categorieSelect.value !== '' && fileInput.files.length > 0) {
     submitButton.disabled = false;
     submitButton.classList.add('active');
+    errorMessage.style.display = 'none';
   } else {
     submitButton.disabled = true;
     submitButton.classList.remove('active');
+    errorMessage.style.display = 'block';
   }
 }
 
 titreInput.addEventListener('input', checkConditions);
 categorieSelect.addEventListener('change', checkConditions);
+fileInput.addEventListener('change', checkConditions);
 
 document.getElementById('formulaire-ajout').addEventListener('submit', function(event) {
   event.preventDefault();
